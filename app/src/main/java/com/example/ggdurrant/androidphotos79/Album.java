@@ -67,4 +67,9 @@ public class Album implements Serializable{
     public int getSize(){
         return photos.size();
     }
+
+    @Override
+    public String toString(){
+        return this.name;
+    }
 }
