@@ -2,6 +2,7 @@ package com.example.ggdurrant.androidphotos79;
 
 import android.app.Dialog;
 import android.content.DialogInterface;
+import android.content.Intent;
 import android.graphics.Color;
 import android.support.v7.app.AlertDialog;
 import android.support.v7.app.AppCompatActivity;
@@ -60,6 +61,16 @@ public class MainActivity extends AppCompatActivity {
                 view.setSelected(true);
                 albums.setSelected(true);
 
+                open.setOnClickListener(new View.OnClickListener() {
+                    @Override
+                    public void onClick(View v){
+                        Intent intent = new Intent(MainActivity.this, AlbumActivity.class);
+                        intent.putExtra("index", pos);
+                        startActivity(intent);
+
+                    }
+                });
+
                 delete.setOnClickListener(new View.OnClickListener(){
                     @Override
                     public void onClick(View v){
@@ -97,7 +108,7 @@ public class MainActivity extends AppCompatActivity {
 
                                 else{
                                     input = txt.getText().toString();
-                                    Toast.makeText(getApplicationContext(), "renaming album: "+input, Toast.LENGTH_SHORT).show();
+                                    Toast.makeText(getApplicationContext(), "renaming this album: "+input, Toast.LENGTH_SHORT).show();
                                     info.albums.get(pos).setName(input);
                                     info.save(c);
                                     albums.setAdapter(adapter);
@@ -173,5 +184,7 @@ public class MainActivity extends AppCompatActivity {
 
             }
         });
+
+
     }
 }

@@ -16,6 +16,15 @@
                 <category android:name="android.intent.category.LAUNCHER" />
             </intent-filter>
         </activity>
+
+        <activity
+            android:name=".AlbumActivity"
+            android:label="Photo Album">
+        </activity>
+
+
     </application>
+
+
 
 </manifest>

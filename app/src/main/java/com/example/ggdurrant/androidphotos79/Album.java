@@ -60,6 +60,10 @@ public class Album implements Serializable{
         this.photos = p;
     }
 
+    public void addPhoto(Photo p){
+        photos.add(p);
+    }
+
     /**
      * gets number of photos in album
      * @return
