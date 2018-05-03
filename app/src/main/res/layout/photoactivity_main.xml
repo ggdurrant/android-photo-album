@@ -23,7 +23,7 @@
                 android:layout_gravity="center_vertical"
                 android:layout_weight="1"
                 android:text="Left"
-                tools:textSize="12sp" />
+                tools:textSize="8sp" />
 
             <ImageView
                 android:id="@+id/slideshowImage"
@@ -38,18 +38,18 @@
                 android:layout_gravity="center_vertical"
                 android:layout_weight="1"
                 android:text="Right"
-                tools:textSize="10sp" />
+                tools:textSize="8sp" />
         </LinearLayout>
 
         <LinearLayout
             android:layout_width="wrap_content"
-            android:layout_height="358dp"
+            android:layout_height="400dp"
             android:layout_weight="1"
             android:orientation="horizontal">
 
             <LinearLayout
                 android:layout_width="match_parent"
-                android:layout_height="match_parent"
+                android:layout_height="400dp"
                 android:layout_weight="1"
                 android:orientation="vertical">
 
@@ -58,27 +58,28 @@
                     android:layout_width="match_parent"
                     android:layout_height="wrap_content"
                     android:text="+ Person"
-                    tools:textSize="12sp" />
+                    tools:textSize="8sp" />
 
                 <Button
                     android:id="@+id/addLocationBtn"
                     android:layout_width="match_parent"
                     android:layout_height="wrap_content"
                     android:text="+ Location"
-                    tools:textSize="10sp" />
+                    tools:textSize="8sp" />
 
                 <Button
                     android:id="@+id/deleteTagBtn"
                     android:layout_width="match_parent"
                     android:layout_height="wrap_content"
                     android:text="Delete"
-                    tools:textSize="12sp" />
+                    tools:textSize="8sp" />
 
                 <Button
                     android:id="@+id/homeBtn"
                     android:layout_width="match_parent"
                     android:layout_height="wrap_content"
-                    android:text="Home" />
+                    android:text="Back"
+                    tools:textSize="8sp" />
             </LinearLayout>
 
             <ListView

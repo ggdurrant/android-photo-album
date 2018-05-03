@@ -64,12 +64,10 @@ public class AlbumInfo implements Serializable {
     }
 
     public boolean isAlbum(String s){
-        boolean isA = false;
         for(int i=0; i<albums.size(); i++){
-            if(albums.get(i).getName().equalsIgnoreCase(s));
-            isA = true;
-            return isA;
+            if(albums.get(i).getName().equals(s));
+            return true;
         }
-        return isA;
+        return false;
     }
 }

@@ -15,37 +15,90 @@ import android.graphics.Bitmap;
 public class Photo implements Serializable{
     private static final long serialversionUID = 1L;
     transient Bitmap image;
-    private Map<String, ArrayList<String>> tagsHashTable = new HashMap<>();
+    private ArrayList<String> personTags = new ArrayList<String>();
+    private ArrayList<String> locationTags = new ArrayList<String>();
+//    private Map<String, ArrayList<String>> tagsHashTable = new HashMap<>();
     String photoName = "";
 
     public String getPhotoName(){
         return photoName;
     }
-
     public void setPhotoName(String s){
         this.photoName = s;
     }
-
     public Bitmap getImage() {
         return image;
     }
-
     public void setImage(Bitmap b){
         this.image = b;
     }
-
-    public String[] getTagsAsString() {
-        String[] tags = new String[tagsHashTable.size()];
-        tags = (String[]) tagsHashTable.values().toArray();
-        return tags;
+    public ArrayList<String> getPersonTags(){
+        return personTags;
+    }
+    public ArrayList<String> getLocationTags() {
+        return locationTags;
+    }
+    public boolean isPersonTag(String s){
+        for(int i=0; i<personTags.size(); i++){
+            if(personTags.get(i).contains(s)){
+                return true;
+            }
+        }
+        return false;
     }
 
-    public String[][] getTagsWithPairs() {
-        int count = 0;
-        ArrayList<String> person = tagsHashTable.get("person");
-        ArrayList<String> location = tagsHashTable.get("location");
-        return null;
+    public boolean isLocationTag(String s){
+        for(int i=0; i<locationTags.size(); i++){
+            if(locationTags.get(i).contains(s)){
+                return true;
+            }
+        }
+        return false;
     }
+
+    public void addPersonTag(String s){
+        personTags.add(s);
+    }
+
+    public void addLocationTag(String s){
+        locationTags.add(s);
+    }
+
+    public void removePersonT(int i){
+        personTags.remove(i);
+    }
+
+    public void removeLocationT(int i){
+        locationTags.remove(i);
+    }
+
+    public void removePersonTag(String s){
+        for(int i=0; i<personTags.size(); i++){
+            if(personTags.get(i).equals(s)){
+                personTags.remove(i);
+            }
+        }
+    }
+
+    public void removeLocationTag(String s){
+        for(int i=0; i<locationTags.size(); i++){
+            if(locationTags.get(i).equals(s)){
+                locationTags.remove(i);
+            }
+        }
+    }
+    //    public String[] getTags() {
+//        String[] tags = new String[tagsHashTable.size()];
+//        tags = (String[]) tagsHashTable.values().toArray();
+//        return tags;
+//    }
+//
+//    public String[][] getTagPairs() {
+//        int count = 0;
+//        ArrayList<String> person = tagsHashTable.get("person");
+//        ArrayList<String> location = tagsHashTable.get("location");
+//        return null;
+//    }
 
     private void readObject(ObjectInputStream ois) throws IOException, ClassNotFoundException {
         ois.defaultReadObject();

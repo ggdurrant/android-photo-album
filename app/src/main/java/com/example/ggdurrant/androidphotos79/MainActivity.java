@@ -147,8 +147,8 @@ public class MainActivity extends AppCompatActivity {
                 dialog.setPositiveButton("Enter", new DialogInterface.OnClickListener() {
                     @Override
                     public void onClick(DialogInterface dialog, int which) {
-                        input = txt.getText().toString();
-                        if(input.isEmpty()){
+//                        input = txt.getText().toString();
+                        if(txt.getText().toString().isEmpty()){
                             AlertDialog.Builder error = new AlertDialog.Builder(c);
                             error.setTitle("error: empty");
                             error.setPositiveButton("OK", new DialogInterface.OnClickListener() {
@@ -161,20 +161,22 @@ public class MainActivity extends AppCompatActivity {
                             error.show();
                         }
 
-                        else if(info.isAlbum(input)){
-                            AlertDialog.Builder error = new AlertDialog.Builder(c);
-                            error.setTitle("error: duplicate");
-                            error.setPositiveButton("OK", new DialogInterface.OnClickListener() {
-                                @Override
-                                public void onClick(DialogInterface dialog, int which) {
-                                    dialog.dismiss();
-                                    return;
-                                }
-                            });
-                            error.show();
-                        }
+//                        else if(info.isAlbum(txt.getText().toString())){
+//                            Toast.makeText(getApplicationContext(), txt.getText().toString(), Toast.LENGTH_SHORT).show();
+//                            AlertDialog.Builder error = new AlertDialog.Builder(c);
+//                            error.setTitle("error: duplicate3");
+//                            error.setPositiveButton("OK", new DialogInterface.OnClickListener() {
+//                                @Override
+//                                public void onClick(DialogInterface dialog, int which) {
+//                                    dialog.dismiss();
+//                                    return;
+//                                }
+//                            });
+//                            error.show();
+//                        }
 
                         else{
+                            input = txt.getText().toString();
                             Toast.makeText(getApplicationContext(), "adding album: "+input, Toast.LENGTH_SHORT).show();
                             Album newAlbum = new Album(input);
                             info.albums.add(newAlbum);
@@ -209,5 +211,6 @@ public class MainActivity extends AppCompatActivity {
 
 
     }
+
 
 }
