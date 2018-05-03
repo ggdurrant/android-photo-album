@@ -12,7 +12,11 @@ import android.view.*;
 import android.content.Intent;
 import android.content.Context;
 
-
+/**
+ * controls the slideshow screen of individual photos with options to add or remove tags, scroll
+ * @author George Durrant
+ * @author Omar Morsy
+ */
 public class PhotoActivity extends AppCompatActivity {
 
     final Context c = this;
@@ -54,6 +58,10 @@ public class PhotoActivity extends AppCompatActivity {
 
         personList.setChoiceMode(GridView.CHOICE_MODE_SINGLE);
         personList.setSelection(0);
+
+        /**
+         * selects person tags for removal purposes
+         */
         personList.setOnItemClickListener(new AdapterView.OnItemClickListener() {
             @Override
             public void onItemClick(AdapterView<?> parent, View view, int position, long id) {
@@ -73,6 +81,10 @@ public class PhotoActivity extends AppCompatActivity {
 
         locationList.setChoiceMode(GridView.CHOICE_MODE_SINGLE);
         locationList.setSelection(0);
+
+        /**
+         * selects location tags for removal purposes
+         */
         locationList.setOnItemClickListener(new AdapterView.OnItemClickListener() {
             @Override
             public void onItemClick(AdapterView<?> parent, View view, int position, long id) {
@@ -91,7 +103,9 @@ public class PhotoActivity extends AppCompatActivity {
         });
 
 
-
+        /**
+         * brings user back to album screen
+         */
         home.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View v) {
@@ -101,6 +115,9 @@ public class PhotoActivity extends AppCompatActivity {
             }
         });
 
+        /**
+         * adds person tag to photo
+         */
         addPerson.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View v) {
@@ -149,6 +166,9 @@ public class PhotoActivity extends AppCompatActivity {
 
         });
 
+        /**
+         * adds location tag to photo
+         */
         addLocation.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View v) {
@@ -197,6 +217,9 @@ public class PhotoActivity extends AppCompatActivity {
 
         });
 
+        /**
+         * scrolls left through album photos
+         */
         left.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View v){
@@ -214,6 +237,9 @@ public class PhotoActivity extends AppCompatActivity {
             }
         });
 
+        /**
+         * scrolls right through album photos
+         */
         right.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View v){

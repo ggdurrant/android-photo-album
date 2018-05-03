@@ -60,6 +60,10 @@ public class Album implements Serializable{
         this.photos = p;
     }
 
+    /**
+     * adds a Photo to the list
+     * @param p
+     */
     public void addPhoto(Photo p){
         photos.add(p);
     }
@@ -72,6 +76,10 @@ public class Album implements Serializable{
         return photos.size();
     }
 
+    /**
+     * returns the filename of the photo
+     * @return
+     */
     @Override
     public String toString(){
         return this.name;

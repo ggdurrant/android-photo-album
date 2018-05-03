@@ -17,27 +17,61 @@ public class Photo implements Serializable{
     transient Bitmap image;
     private ArrayList<String> personTags = new ArrayList<String>();
     private ArrayList<String> locationTags = new ArrayList<String>();
-//    private Map<String, ArrayList<String>> tagsHashTable = new HashMap<>();
     String photoName = "";
 
+    /**
+     * returns photo filename
+     * @return
+     */
     public String getPhotoName(){
         return photoName;
     }
+
+    /**
+     * sets photo filename to s
+     * @param s
+     */
     public void setPhotoName(String s){
         this.photoName = s;
     }
+
+    /**
+     * returns photo image as Bitmap
+     * @return
+     */
     public Bitmap getImage() {
         return image;
     }
+
+    /**
+     * sets photo image
+     * @param b
+     */
     public void setImage(Bitmap b){
         this.image = b;
     }
+
+    /**
+     * returns person tags of the photo as ArrayList
+     * @return
+     */
     public ArrayList<String> getPersonTags(){
         return personTags;
     }
+
+    /**
+     * returns location tags of the photo as ArrayList
+     * @return
+     */
     public ArrayList<String> getLocationTags() {
         return locationTags;
     }
+
+    /**
+     * boolean method to determine if any person tags of photo contains the String s
+     * @param s
+     * @return
+     */
     public boolean isPersonTag(String s){
         for(int i=0; i<personTags.size(); i++){
             if(personTags.get(i).contains(s)){
@@ -47,6 +81,11 @@ public class Photo implements Serializable{
         return false;
     }
 
+    /**
+     * boolean method to determine if any location tags of photo contains the String s
+     * @param s
+     * @return
+     */
     public boolean isLocationTag(String s){
         for(int i=0; i<locationTags.size(); i++){
             if(locationTags.get(i).contains(s)){
@@ -56,22 +95,42 @@ public class Photo implements Serializable{
         return false;
     }
 
+    /**
+     * adds a person tag to the photo
+     * @param s
+     */
     public void addPersonTag(String s){
         personTags.add(s);
     }
 
+    /**
+     * adds a location tag to the photo
+     * @param s
+     */
     public void addLocationTag(String s){
         locationTags.add(s);
     }
 
+    /**
+     * removes person tag from the photo by index
+     * @param i
+     */
     public void removePersonT(int i){
         personTags.remove(i);
     }
 
+    /**
+     * removes location tag from the photo by index
+     * @param i
+     */
     public void removeLocationT(int i){
         locationTags.remove(i);
     }
 
+    /**
+     * removes person tag from the photo from the tags String
+     * @param s
+     */
     public void removePersonTag(String s){
         for(int i=0; i<personTags.size(); i++){
             if(personTags.get(i).equals(s)){
@@ -80,26 +139,24 @@ public class Photo implements Serializable{
         }
     }
 
-    public void removeLocationTag(String s){
-        for(int i=0; i<locationTags.size(); i++){
-            if(locationTags.get(i).equals(s)){
+    /**
+     * removes location tag from the photo from the tags String
+     * @param s
+     */
+    public void removeLocationTag(String s) {
+        for (int i = 0; i < locationTags.size(); i++) {
+            if (locationTags.get(i).equals(s)) {
                 locationTags.remove(i);
             }
         }
     }
-    //    public String[] getTags() {
-//        String[] tags = new String[tagsHashTable.size()];
-//        tags = (String[]) tagsHashTable.values().toArray();
-//        return tags;
-//    }
-//
-//    public String[][] getTagPairs() {
-//        int count = 0;
-//        ArrayList<String> person = tagsHashTable.get("person");
-//        ArrayList<String> location = tagsHashTable.get("location");
-//        return null;
-//    }
 
+    /**
+     * readObject method
+     * @param ois
+     * @throws IOException
+     * @throws ClassNotFoundException
+     */
     private void readObject(ObjectInputStream ois) throws IOException, ClassNotFoundException {
         ois.defaultReadObject();
         int i;
@@ -111,6 +168,12 @@ public class Photo implements Serializable{
         image = BitmapFactory.decodeByteArray(b, 0, b.length);
     }
 
+    /**
+     * writeObject method
+     * @param oos
+     * @throws IOException
+     * @throws ClassNotFoundException
+     */
     private void writeObject(ObjectOutputStream oos) throws IOException, ClassNotFoundException {
         oos.defaultWriteObject();
         if(image!=null){

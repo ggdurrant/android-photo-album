@@ -15,6 +15,12 @@ import java.util.ArrayList;
 import java.util.ArrayDeque;
 import java.util.List;
 
+/**
+ * home screen with album titles which can be opened, added to, renamed, or deleted
+ * implements a search feature
+ * @author George Durrant
+ * @author Omar Morsy
+ */
 public class MainActivity extends AppCompatActivity {
 
     ListView albums;
@@ -51,7 +57,9 @@ public class MainActivity extends AppCompatActivity {
 
         final Button search = (Button) findViewById(R.id.searchBtn);
 
-
+        /**
+         * allows for delete, rename, or open of an album once selected
+         */
         albums.setOnItemClickListener(new AdapterView.OnItemClickListener() {
             Button delete = (Button) findViewById(R.id.deleteBtn);
             Button edit = (Button) findViewById(R.id.editBtn);
@@ -62,6 +70,9 @@ public class MainActivity extends AppCompatActivity {
                 view.setSelected(true);
                 //albums.setSelected(true);
 
+                /**
+                 * opens the current album in the AlbumActivity screen
+                 */
                 open.setOnClickListener(new View.OnClickListener() {
                     @Override
                     public void onClick(View v){
@@ -72,6 +83,9 @@ public class MainActivity extends AppCompatActivity {
                     }
                 });
 
+                /**
+                 * deletes selected album
+                 */
                 delete.setOnClickListener(new View.OnClickListener(){
                     @Override
                     public void onClick(View v){
@@ -81,6 +95,9 @@ public class MainActivity extends AppCompatActivity {
                     }
                 });
 
+                /**
+                 * renames selected album
+                 */
                 edit.setOnClickListener(new View.OnClickListener(){
                     @Override
                     public void onClick(View v){
@@ -135,6 +152,9 @@ public class MainActivity extends AppCompatActivity {
             }
         });
 
+        /**
+         * adds an album
+         */
         add.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View view){
@@ -200,7 +220,9 @@ public class MainActivity extends AppCompatActivity {
         });
 
 
-
+        /**
+         * searches for photos with tags of person and/or location
+         */
         search.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View view){

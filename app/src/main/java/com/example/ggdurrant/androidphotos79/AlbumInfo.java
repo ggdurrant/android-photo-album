@@ -63,6 +63,11 @@ public class AlbumInfo implements Serializable {
         catch (IOException e){ e.printStackTrace();}
     }
 
+    /**
+     * boolean method to determine if an album exists with name s
+     * @param s
+     * @return
+     */
     public boolean isAlbum(String s){
         for(int i=0; i<albums.size(); i++){
             if(albums.get(i).getName().equals(s));

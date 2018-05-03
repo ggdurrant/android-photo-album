@@ -11,6 +11,11 @@ import android.widget.TextView;
 
 import java.util.ArrayList;
 
+/**
+ * specialized adapter which returns a view from a photo
+ * @author George Durrant
+ * @author Omar Morsy
+ */
 public class MyAdapter extends ArrayAdapter{
 
     private Context context;

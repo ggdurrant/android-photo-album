@@ -18,7 +18,11 @@ import android.app.AlertDialog;
 import android.widget.*;
 import android.content.Context;
 
-
+/**
+ * controls the individual album screen with a grid of photos and their filenames
+ * @author George Durrant
+ * @author Omar Morsy
+ */
 public class AlbumActivity extends AppCompatActivity{
 
     private GridView grid;
@@ -29,11 +33,17 @@ public class AlbumActivity extends AppCompatActivity{
     int i;
     private static final int PICK_PHOTO_REQUEST = 1;
 
-
+    /**
+     * creates the Album view screen
+     * @param savedInstanceState
+     */
     protected void onCreate(final Bundle savedInstanceState){
         super.onCreate(savedInstanceState);
         setContentView(R.layout.albumactivity_main);
 
+        /**
+         * sets up the grid view of photos
+         */
         grid = (GridView) findViewById(R.id.grid);
         adapter = new MyAdapter(this, getPhotos());
         grid.setAdapter(adapter);
@@ -45,6 +55,9 @@ public class AlbumActivity extends AppCompatActivity{
         grid.setChoiceMode(GridView.CHOICE_MODE_SINGLE);
         grid.setSelection(0);
 
+        /**
+         * allows for move, delete, or display to be clicked when photo is selected
+         */
         grid.setOnItemClickListener(new AdapterView.OnItemClickListener() {
             Button move = (Button) findViewById(R.id.movePhotoBtn);
             Button delete = (Button) findViewById(R.id.deletePhotoBtn);
@@ -55,6 +68,9 @@ public class AlbumActivity extends AppCompatActivity{
                 final int pos = position;
                 view.setSelected(true);
 
+                /**
+                 * deletes a photo from the album
+                 */
                 delete.setOnClickListener(new View.OnClickListener() {
                     @Override
                     public void onClick(View v) {
@@ -66,8 +82,9 @@ public class AlbumActivity extends AppCompatActivity{
                 });
 
 
-
-
+                /**
+                 * moves a photo from the current album to a specified one
+                 */
                 move.setOnClickListener(new View.OnClickListener() {
                     @Override
                     public void onClick(View v) {
@@ -149,7 +166,9 @@ public class AlbumActivity extends AppCompatActivity{
                 });
 
 
-
+                /**
+                 * displays a photo in the slideshow screen
+                 */
                 display.setOnClickListener(new View.OnClickListener() {
                     @Override
                     public void onClick(View v){
@@ -163,9 +182,10 @@ public class AlbumActivity extends AppCompatActivity{
             }
         });
 
-
+        /**
+         * adds a photo chosen from the Android's storage to the album
+         */
         Button add = (Button) findViewById(R.id.addPhotoBtn);
-
         add.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View view) {
@@ -209,12 +229,20 @@ public class AlbumActivity extends AppCompatActivity{
         }
     }
 
-
+    /**
+     * returns ArrayList of photos in the album
+     * @return
+     */
     private ArrayList getPhotos(){
         int i = getIntent().getIntExtra("index", 0);
         return MainActivity.info.albums.get(i).getPhotos();
     }
 
+    /**
+     * returns String of the filepath to a photo
+     * @param u
+     * @return
+     */
     private String filePath(Uri u){
         String filename = "";
         String[] column = {MediaStore.MediaColumns.DISPLAY_NAME};
