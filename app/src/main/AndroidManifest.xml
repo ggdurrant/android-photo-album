@@ -27,6 +27,11 @@
             android:label="Photo Slideshow">
         </activity>
 
+        <activity
+            android:name=".SearchActivity"
+            android:label="Search Results">
+        </activity>
+
 
     </application>
 

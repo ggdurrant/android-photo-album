@@ -22,6 +22,7 @@ public class MainActivity extends AppCompatActivity {
     public static AlbumInfo info;
     final Context c = this;
     String input;
+    public static ArrayList<Photo> result;
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
@@ -48,7 +49,7 @@ public class MainActivity extends AppCompatActivity {
         Button add = (Button) findViewById(R.id.addBtn);
 
 
-        Button search = (Button) findViewById(R.id.searchBtn);
+        final Button search = (Button) findViewById(R.id.searchBtn);
 
 
         albums.setOnItemClickListener(new AdapterView.OnItemClickListener() {
@@ -203,14 +204,80 @@ public class MainActivity extends AppCompatActivity {
         search.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View view){
-                final Dialog dialog = new Dialog(c);
-                dialog.setContentView(R.layout.search_main);
+                AlertDialog.Builder searcher = new AlertDialog.Builder(c);
+                searcher.setTitle("Enter person and/or location: ");
 
+                final EditText person = new EditText(c);
+                person.setHint("person");
+                final EditText location = new EditText(c);
+                location.setHint("location");
+
+                person.setInputType(InputType.TYPE_CLASS_TEXT);
+                location.setInputType(InputType.TYPE_CLASS_TEXT);
+
+                LinearLayout lay = new LinearLayout(c);
+                lay.setOrientation(LinearLayout.VERTICAL);
+                lay.addView(person);
+                lay.addView(location);
+                searcher.setView(lay);
+
+                searcher.setPositiveButton("Enter", new DialogInterface.OnClickListener() {
+                    @Override
+                    public void onClick(DialogInterface dialog, int which) {
+//                        input = txt.getText().toString();
+                        if(person.getText().toString().isEmpty() && location.getText().toString().isEmpty()){
+                            AlertDialog.Builder error = new AlertDialog.Builder(c);
+                            error.setTitle("error: empty");
+                            error.setPositiveButton("OK", new DialogInterface.OnClickListener() {
+                                @Override
+                                public void onClick(DialogInterface dialog, int which) {
+                                    dialog.dismiss();
+                                    return;
+                                }
+                            });
+                            error.show();
+                        }
+
+                        else{
+                            result = new ArrayList<Photo>();
+                            for(int i=0; i<info.albums.size(); i++){
+                                ArrayList<Photo> thePhotos = info.albums.get(i).getPhotos();
+                                for(int j=0; j<thePhotos.size(); j++){
+                                    if(thePhotos.get(j).isLocationTag(location.getText().toString()) || thePhotos.get(j).isPersonTag(person.getText().toString())){
+                                        result.add(thePhotos.get(j));
+                                    }
+                                }
+                            }
+
+                            if(result.isEmpty()){
+                                AlertDialog.Builder error = new AlertDialog.Builder(c);
+                                error.setTitle("error: no matches found");
+                                error.setPositiveButton("OK", new DialogInterface.OnClickListener() {
+                                    @Override
+                                    public void onClick(DialogInterface dialog, int which) {
+                                        dialog.dismiss();
+                                        return;
+                                    }
+                                });
+                                error.show();
+                            }
+
+                            else{
+                                Intent intent = new Intent(MainActivity.this, SearchActivity.class);
+                                startActivity(intent);
+                            }
+                        }
+                    }
+                });
+
+                 searcher.show();
             }
         });
 
 
     }
+
+
 
 
 }
