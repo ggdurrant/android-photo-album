@@ -62,4 +62,14 @@ public class AlbumInfo implements Serializable {
         } catch (FileNotFoundException e){ e.printStackTrace();}
         catch (IOException e){ e.printStackTrace();}
     }
+
+    public boolean isAlbum(String s){
+        boolean isA = false;
+        for(int i=0; i<albums.size(); i++){
+            if(albums.get(i).getName().equalsIgnoreCase(s));
+            isA = true;
+            return isA;
+        }
+        return isA;
+    }
 }

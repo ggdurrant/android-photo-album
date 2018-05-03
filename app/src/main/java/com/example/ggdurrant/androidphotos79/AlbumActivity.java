@@ -10,6 +10,7 @@ import android.support.v7.app.AppCompatActivity;
 import android.os.Bundle;
 import android.content.Intent;
 import android.content.DialogInterface;
+import android.text.InputType;
 import android.view.View;
 import java.util.ArrayList;
 import java.io.File;
@@ -24,6 +25,7 @@ public class AlbumActivity extends AppCompatActivity{
     private Album thisAlbum;
     private MyAdapter adapter;
     Context c = this;
+    String input;
     int i;
     private static final int PICK_PHOTO_REQUEST = 1;
 
@@ -33,14 +35,134 @@ public class AlbumActivity extends AppCompatActivity{
         setContentView(R.layout.albumactivity_main);
 
         grid = (GridView) findViewById(R.id.grid);
-
         adapter = new MyAdapter(this, getPhotos());
-
         grid.setAdapter(adapter);
 
         int i = getIntent().getIntExtra("index", 0);
         thisAlbum = MainActivity.info.albums.get(i);
         final int albumIndex = i;
+
+        grid.setChoiceMode(GridView.CHOICE_MODE_SINGLE);
+        grid.setSelection(0);
+
+        grid.setOnItemClickListener(new AdapterView.OnItemClickListener() {
+            Button move = (Button) findViewById(R.id.movePhotoBtn);
+            Button delete = (Button) findViewById(R.id.deletePhotoBtn);
+            Button display = (Button) findViewById(R.id.displayPhotoBtn);
+
+            @Override
+            public void onItemClick(AdapterView<?> parent, View view, int position, long id) {
+                final int pos = position;
+                view.setSelected(true);
+
+                delete.setOnClickListener(new View.OnClickListener() {
+                    @Override
+                    public void onClick(View v) {
+                        MainActivity.info.albums.get(getIntent().getIntExtra("index", 0)).getPhotos().remove(pos);
+                        adapter = new MyAdapter(c, getPhotos());
+                        grid.setAdapter(adapter);
+                        MainActivity.info.save(c);
+                    }
+                });
+
+
+
+
+                move.setOnClickListener(new View.OnClickListener() {
+                    @Override
+                    public void onClick(View v) {
+                        AlertDialog.Builder newAlbum = new AlertDialog.Builder(c);
+                        newAlbum.setTitle("Album to move to: ");
+                        final EditText txt = new EditText(c);
+                        txt.setInputType(InputType.TYPE_CLASS_TEXT);
+                        newAlbum.setView(txt);
+                        newAlbum.setPositiveButton("Enter", new DialogInterface.OnClickListener() {
+                            @Override
+                            public void onClick(DialogInterface dialog, int which) {
+                                if(txt.getText().toString().isEmpty()){
+                                    AlertDialog.Builder error = new AlertDialog.Builder(c);
+                                    error.setTitle("error: empty");
+                                    error.setPositiveButton("OK", new DialogInterface.OnClickListener() {
+                                        @Override
+                                        public void onClick(DialogInterface dialog, int which) {
+                                            dialog.dismiss();
+                                            return;
+                                        }
+                                    });
+                                    error.show();
+                                }
+
+//                                else if(MainActivity.info.isAlbum(input)){
+//                                    AlertDialog.Builder error = new AlertDialog.Builder(c);
+//                                    error.setTitle("error: duplicate");
+//                                    error.setPositiveButton("OK", new DialogInterface.OnClickListener() {
+//                                        @Override
+//                                        public void onClick(DialogInterface dialog, int which) {
+//                                            dialog.dismiss();
+//                                            return;
+//                                        }
+//                                    });
+//                                    error.show();
+//                                }
+
+                                else{
+                                    input = txt.getText().toString();
+
+                                    Photo thisPhoto = MainActivity.info.albums.get(getIntent().getIntExtra("index", 0)).getPhotos().get(pos);
+
+                                    if(MainActivity.info.isAlbum(input)) {
+                                        for (int i = 0; i < MainActivity.info.albums.size(); i++) {
+                                            if (MainActivity.info.albums.get(i).getName().equalsIgnoreCase(input)) {
+                                                Toast.makeText(getApplicationContext(), "Moving to album: "+input, Toast.LENGTH_SHORT).show();
+                                                MainActivity.info.albums.get(i).addPhoto(thisPhoto);
+                                                MainActivity.info.albums.get(getIntent().getIntExtra("index", 0)).getPhotos().remove(pos);
+                                                adapter = new MyAdapter(c, getPhotos());
+                                                grid.setAdapter(adapter);
+                                                MainActivity.info.save(c);
+                                                dialog.dismiss();
+                                                break;
+                                            }
+                                        }
+                                    }
+
+                                    else {
+                                        AlertDialog.Builder error = new AlertDialog.Builder(c);
+                                        error.setTitle("error: not an album");
+                                        error.setPositiveButton("OK", new DialogInterface.OnClickListener() {
+                                            @Override
+                                            public void onClick(DialogInterface dialog, int which) {
+                                                dialog.dismiss();
+                                                return;
+                                            }
+                                        });
+
+                                        error.show();
+                                    }
+
+                                }
+                            }
+                        });
+
+                        newAlbum.show();
+
+                    }
+                });
+
+
+
+                display.setOnClickListener(new View.OnClickListener() {
+                    @Override
+                    public void onClick(View v){
+                        Intent intent = new Intent(AlbumActivity.this, PhotoActivity.class);
+                        intent.putExtra("albumIndex", albumIndex);
+                        intent.putExtra("photoIndex", pos);
+                        startActivity(intent);
+                    }
+                });
+
+            }
+        });
+
 
         Button add = (Button) findViewById(R.id.addPhotoBtn);
 

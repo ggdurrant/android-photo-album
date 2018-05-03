@@ -22,6 +22,11 @@
             android:label="Photo Album">
         </activity>
 
+        <activity
+            android:name=".PhotoActivity"
+            android:label="Photo Slideshow">
+        </activity>
+
 
     </application>
 
